@@ -34,17 +34,20 @@ Returns the list of the registered sessions and information regarding them.
 
 ```json
 {
-  "no_of_sessions" : "NUMBER",
-  "sessions": {
-    "session_name": "Session_1",
-    "session_id": "SESSION_GUID",
-    "no_of_images": "NUMBER",
-    "processed_indices": ["ndvi"],
-  }
-  {
-    // session_2
-  }
-
+  [
+    {
+        "session_name": "Session_1",
+        "session_id": "SESSION_GUID",
+        "no_of_images": "NUMBER",
+        "processed_indices": ["ndvi"]
+    },
+    {
+        "session_name": "Session_2",
+        "session_id": "SESSION_GUID",
+        "no_of_images": "NUMBER",
+        "processed_indices": ["ndvi"]
+    }
+  ]
 }
 ```
 
