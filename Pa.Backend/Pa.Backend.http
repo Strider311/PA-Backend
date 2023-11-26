@@ -1,6 +1,6 @@
-@Pa.Backend_HostAddress = http://localhost:5115
+@Backend_HostAddress = http://localhost:5115
 
-GET {{Pa.Backend_HostAddress}}/weatherforecast/
+GET {{Backend_HostAddress}}//
 Accept: application/json
 
 ###
