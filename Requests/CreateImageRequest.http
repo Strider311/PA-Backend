@@ -1,0 +1,10 @@
+@Backend_HostAddress = http://localhost:5115
+@guid = 6b1223f0-bb1f-4fef-8659-5dd19228fb5f
+
+POST {{Backend_HostAddress}}/api/Image
+Content-Type: application/json
+
+{
+    "fileName" : "Image_001.jpg",
+    "sessionId" : "6b1223f0-bb1f-4fef-8659-5dd19228fb5f"
+}

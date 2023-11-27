@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Pa.Backend.Dal;
@@ -11,9 +12,11 @@ using Pa.Backend.Dal;
 namespace Pa.Backend.Migrations
 {
     [DbContext(typeof(PaContext))]
-    partial class PaContextModelSnapshot : ModelSnapshot
+    [Migration("20231126165024_ChangeDbModel")]
+    partial class ChangeDbModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,50 +31,27 @@ namespace Pa.Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("dt_created")
+                    b.Property<DateTime>("dtCreated")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("file_name")
+                    b.Property<string>("fileName")
                         .HasColumnType("text");
 
-                    b.Property<bool>("is_analyzed")
-                        .HasColumnType("boolean");
+                    b.Property<float>("healthyPercentage")
+                        .HasColumnType("real");
 
-                    b.Property<bool>("is_processed")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("lst_modified")
+                    b.Property<DateTime>("lstModified")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("session_id")
                         .HasColumnType("uuid");
 
+                    b.Property<float>("unhealthyPercentage")
+                        .HasColumnType("real");
+
                     b.HasKey("id");
 
                     b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("Pa.Backend.Models.MetricDbModel", b =>
-                {
-                    b.Property<Guid>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<float>("healthy_percent")
-                        .HasColumnType("real");
-
-                    b.Property<Guid>("image_id")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("index_type")
-                        .HasColumnType("integer");
-
-                    b.Property<float>("unhealthy_percent")
-                        .HasColumnType("real");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Metrics");
                 });
 
             modelBuilder.Entity("Pa.Backend.Models.SessionDbModel", b =>
@@ -80,19 +60,19 @@ namespace Pa.Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("dt_created")
+                    b.Property<DateTime>("dtCreated")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<float>("healthy_percent")
+                    b.Property<float>("healthyPercentage")
                         .HasColumnType("real");
 
-                    b.Property<DateTime>("lst_modified")
+                    b.Property<DateTime>("lstModified")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("session_name")
+                    b.Property<string>("sessionName")
                         .HasColumnType("text");
 
-                    b.Property<float>("unhealthy_percent")
+                    b.Property<float>("unhealthyPercentage")
                         .HasColumnType("real");
 
                     b.HasKey("id");

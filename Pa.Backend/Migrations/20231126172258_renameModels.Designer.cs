@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Pa.Backend.Dal;
@@ -11,9 +12,11 @@ using Pa.Backend.Dal;
 namespace Pa.Backend.Migrations
 {
     [DbContext(typeof(PaContext))]
-    partial class PaContextModelSnapshot : ModelSnapshot
+    [Migration("20231126172258_renameModels")]
+    partial class renameModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,11 +37,8 @@ namespace Pa.Backend.Migrations
                     b.Property<string>("file_name")
                         .HasColumnType("text");
 
-                    b.Property<bool>("is_analyzed")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("is_processed")
-                        .HasColumnType("boolean");
+                    b.Property<float>("healthy_percent")
+                        .HasColumnType("real");
 
                     b.Property<DateTime>("lst_modified")
                         .HasColumnType("timestamp with time zone");
@@ -46,32 +46,12 @@ namespace Pa.Backend.Migrations
                     b.Property<Guid>("session_id")
                         .HasColumnType("uuid");
 
-                    b.HasKey("id");
-
-                    b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("Pa.Backend.Models.MetricDbModel", b =>
-                {
-                    b.Property<Guid>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<float>("healthy_percent")
-                        .HasColumnType("real");
-
-                    b.Property<Guid>("image_id")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("index_type")
-                        .HasColumnType("integer");
-
                     b.Property<float>("unhealthy_percent")
                         .HasColumnType("real");
 
                     b.HasKey("id");
 
-                    b.ToTable("Metrics");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Pa.Backend.Models.SessionDbModel", b =>

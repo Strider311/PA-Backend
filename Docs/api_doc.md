@@ -39,13 +39,13 @@ Returns the list of the registered sessions and information regarding them.
         "session_name": "Session_1",
         "session_id": "SESSION_GUID",
         "no_of_images": "NUMBER",
-        "processed_indices": ["ndvi"]
+        "date_created": "DATETIME"
     },
     {
         "session_name": "Session_2",
         "session_id": "SESSION_GUID",
         "no_of_images": "NUMBER",
-        "processed_indices": ["ndvi"]
+        "date_created": "DATETIME"
     }
   ]
 }
@@ -61,8 +61,7 @@ Gets the processing results of the session for healthy and unhealthy plants.
 {
   "total_healthy_percent": "NUMBER",
   "total_unhealthy_percent": "NUMBER",
-  "date_completed": "DATE_TIME",
-  "no_of_images": "NUMBER"
+  "date_created": "DATE_TIME"
 }
 ```
 
@@ -102,7 +101,7 @@ When a new image is added to the system, it must be registered here. The respons
 ```json
 {
   "file_name": "Image_001.jpg",
-  "session_id": "SESSION_GUID",
+  "session_id": "SESSION_GUID"
 }
 ```
 
@@ -118,11 +117,36 @@ PUT `api/image/{id}`
 
 Used to update image information through the different processing phases.
 
+#### Request
+
 ```json
 {
   "is_processed": "BOOL",
-  "indices_processed": ["ndvi"],
-  "is_metrics_extracted": "BOOL"
+  "is_analyzed": "BOOL"
+}
+```
+
+#### Response
+
+```json
+{
+  "id": "GUID"
+}
+```
+
+### Get Image
+
+GET `api/Image/{id}`
+
+Returns image path and properties of the image
+
+#### Response
+
+```json
+{
+  "is_processed": "BOOL",
+  "is_metrics_extracted": "BOOL",
+  "image_path": "STRING",
   "metrics": [
     {
       "index_name": "ndvi",
@@ -130,5 +154,29 @@ Used to update image information through the different processing phases.
       "unhealthy_percent": "NUMBER"
     }
   ]
+}
+```
+
+### Add Image Metric
+
+Post `api/Image/metric/{id}`
+
+Used to add an entry for image metrics.
+
+#### Request
+
+```json
+{
+  "index_type": "ENUM",
+  "healthy_percent": "FLOAT",
+  "unhealthy_percent": "FLOAT"
+}
+```
+
+#### Response
+
+```json
+{
+  "id": "GUID"
 }
 ```

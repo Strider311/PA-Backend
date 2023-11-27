@@ -1,29 +1,25 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Pa.Backend.Interfaces;
 using Pa.Backend.Models;
 using Serilog;
 
 namespace Pa.Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/sessions")]
     [ApiController]
     public class SessionsController : ControllerBase
     {
-
         public SessionsController()
         {
             Log.Information("Init Session controller");
         }
 
-        [HttpPost("/create")]
+        [HttpPost]
         public IActionResult CreateSession()
         {
-
             return NotFound();
         }
 
-        [HttpGet()]
+        [HttpGet]
         public IActionResult GetSessions()
         {
             return NotFound();
@@ -32,7 +28,6 @@ namespace Pa.Backend.Controllers
         [HttpGet("/metric/{id:Guid}")]
         public IActionResult GetSessionMetrics(Guid id)
         {
-
             return NotFound();
         }
 

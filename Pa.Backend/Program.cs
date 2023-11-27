@@ -1,6 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using Pa.Backend.Dal;
 using Pa.Backend.Interfaces;
+using Pa.Backend.Services;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -9,12 +9,11 @@ Log.Logger = new LoggerConfiguration()
 
 var builder = WebApplication.CreateBuilder(args);
 {
+    builder.Services.AddDbContext<PaContext>();
+    builder.Services.AddScoped<IImageService, ImageService>();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-    builder.Services.AddSingleton<IImageRepository, ImagesRepository>();
-    // builder.Services.AddSingleton<ISessionService, SessionsService>();
     builder.Services.AddControllers();
-    builder.Services.AddDbContext<PaContext>();
 }
 
 var app = builder.Build();
@@ -25,7 +24,6 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
-    app.UseHttpsRedirection();
     app.MapControllers();
     app.Run();
 }

@@ -1,14 +1,15 @@
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pa.Backend.Models;
+
 namespace Pa.Backend.Dal
 {
-
     public class PaContext : DbContext
     {
         public DbSet<ImageDbModel> Images { get; set; }
 
         public DbSet<SessionDbModel> Sessions { get; set; }
+
+        public DbSet<MetricDbModel> Metrics { get; set; }
 
         public PaContext(DbContextOptions<PaContext> options) : base(options)
         {
@@ -28,5 +29,4 @@ namespace Pa.Backend.Dal
             }
         }
     }
-
 }
