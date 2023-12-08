@@ -1,40 +1,57 @@
 using Microsoft.AspNetCore.Mvc;
+using Pa.Backend.Contracts;
+using Pa.Backend.Interfaces;
 using Pa.Backend.Models;
 using Serilog;
 
 namespace Pa.Backend.Controllers
 {
-    [Route("api/sessions")]
+    [Route("api/[controller]")]
     [ApiController]
     public class SessionsController : ControllerBase
     {
-        public SessionsController()
+        private readonly ISessionService sessionService;
+        public SessionsController(ISessionService sessionService)
         {
-            Log.Information("Init Session controller");
+            this.sessionService = sessionService;
         }
 
         [HttpPost]
-        public IActionResult CreateSession()
+        public async Task<IActionResult> CreateSession([FromBody] CreateSessionRequest sessionRequest)
         {
-            return NotFound();
+            var sessionId = await this.sessionService.CreateSessionAsync(sessionRequest);
+            return Ok(sessionId);
+        }
+
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> UpdateSessionPath(Guid id, [FromBody] UpdateSessionPathRequest request)
+        {
+            await this.sessionService.UpdateSessionPathAsync(id, request.SessionPath);
+            return Ok(id);
         }
 
         [HttpGet]
-        public IActionResult GetSessions()
+        public async Task<IActionResult> GetSessions()
         {
-            return NotFound();
+            var sessions = await this.sessionService.GetSessionsAsync();
+            return Ok(sessions);
         }
 
-        [HttpGet("/metric/{id:Guid}")]
-        public IActionResult GetSessionMetrics(Guid id)
+        [HttpGet("metric/{id:Guid}")]
+        public async Task<IActionResult> GetSessionMetrics(Guid id)
         {
-            return NotFound();
+            var metrics = await this.sessionService.GetSessionMetricsAsync(id);
+            return Ok(metrics);
         }
 
-        [HttpGet("/images")]
-        public IActionResult GetSessionImages([FromQuery] SessionImagesParameters sessionImageParameters)
+
+        [HttpGet("images/{id:Guid}")]
+        public async Task<IActionResult> GetSessionImages(Guid id)
         {
-            return NotFound();
+            // var images = this.sessionService.GetSessionImagesAsync(id, sessionImageParameters.PageNumber, sessionImageParameters.PageSize);
+            var images = await this.sessionService.GetSessionImages(id);
+
+            return Ok(images);
         }
     }
 }

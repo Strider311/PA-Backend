@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Pa.Backend.Dal;
@@ -11,9 +12,11 @@ using Pa.Backend.Dal;
 namespace Pa.Backend.Migrations
 {
     [DbContext(typeof(PaContext))]
-    partial class PaContextModelSnapshot : ModelSnapshot
+    [Migration("20231202135223_2ne2w")]
+    partial class _2ne2w
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

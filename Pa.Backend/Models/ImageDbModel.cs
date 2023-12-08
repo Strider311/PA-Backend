@@ -10,6 +10,8 @@ namespace Pa.Backend.Models
         public Guid session_id { get; set; }
 
         public string? file_name { get; set; }
+
+        public string? file_path { get; set; }
         public DateTime dt_created { get; set; }
         public DateTime lst_modified { get; set; }
         public bool is_processed { get; set; }

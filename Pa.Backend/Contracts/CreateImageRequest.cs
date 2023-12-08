@@ -4,5 +4,7 @@ namespace Pa.Backend.Contracts
     {
         public string fileName { get; set; }
         public Guid sessionId { get; set; }
+
+        public string filePath { get; set; }
     }
 }

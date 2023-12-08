@@ -5,14 +5,16 @@ namespace Pa.Backend.Interfaces
 {
     public interface IImageService
     {
-        Task<GetImageResponse> GetImageById(Guid id);
+        Task<ImageResponse> GetImageByIdAsync(Guid id);
 
-        Task AddNewImage(ImageDbModel image);
+        Task<ImageResponse> GetAnalyzedImageByIdAsync(Guid id);
 
-        Task DeleteImage(Guid id);
+        Task AddNewImageAsync(ImageDbModel image);
 
-        Task UpdateImage(Guid id, UpdateImageRequest request);
+        Task DeleteImageAsync(Guid id);
 
-        Task CreateImageMetric(Guid image_id, CreateMetricsRequest request);
+        Task UpdateImageAsync(Guid id, UpdateImageRequest request);
+
+        Task CreateImageMetricAsync(Guid image_id, CreateMetricsRequest request);
     }
 }

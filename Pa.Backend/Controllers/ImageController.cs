@@ -18,12 +18,12 @@ namespace Pa.Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateImageRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateImageRequest request)
         {
             try
             {
                 var image = MapCreateImageRequest(request);
-                this.imageService.AddNewImage(image);
+                await this.imageService.AddNewImageAsync(image);
                 return Ok(image.id);
             }
             catch
@@ -32,12 +32,29 @@ namespace Pa.Backend.Controllers
             }
         }
 
-        [HttpPut("/{id:guid}")]
-        public IActionResult UpdateImage(Guid id, [FromBody] UpdateImageRequest request)
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetImage(Guid id)
+        {
+            var image = await imageService.GetImageByIdAsync(id);
+
+            return File(image.Image, "image/jpeg");
+        }
+
+        [HttpGet("analyzed/{id:guid}")]
+        public async Task<IActionResult> GetAnalyzedImage(Guid id)
+        {
+            var image = await imageService.GetAnalyzedImageByIdAsync(id);
+
+            return File(image.Image, "image/jpeg");
+        }
+
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateImage(Guid id, [FromBody] UpdateImageRequest request)
         {
             try
             {
-                this.imageService.UpdateImage(id, request);
+                await this.imageService.UpdateImageAsync(id, request);
                 return Ok(id);
             }
             catch
@@ -46,12 +63,12 @@ namespace Pa.Backend.Controllers
             }
         }
 
-        [HttpPost("/{id:guid}/metric")]
-        public IActionResult CreateImageMetric(Guid id, [FromBody] CreateMetricsRequest request)
+        [HttpPost("metric/{id:guid}")]
+        public async Task<IActionResult> CreateImageMetric(Guid id, [FromBody] CreateMetricsRequest request)
         {
             try
             {
-                this.imageService.CreateImageMetric(id, request);
+                await this.imageService.CreateImageMetricAsync(id, request);
                 return Ok(id);
             }
             catch
@@ -70,7 +87,8 @@ namespace Pa.Backend.Controllers
                     file_name = request.fileName,
                     dt_created = DateTime.UtcNow,
                     lst_modified = DateTime.UtcNow,
-                    id = Guid.NewGuid()
+                    id = Guid.NewGuid(),
+                    file_path = request.filePath
                 };
 
                 return image;

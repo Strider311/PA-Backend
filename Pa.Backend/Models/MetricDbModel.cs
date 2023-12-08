@@ -10,8 +10,10 @@ namespace Pa.Backend.Models
         [ForeignKey("image_id")]
         public Guid image_id { get; set; }
 
-        public MultiSpectralEnum index_type { get; set; }
+        public string index_type { get; set; }
         public float healthy_percent { get; set; }
         public float unhealthy_percent { get; set; }
+
+        public string? image_path { get; set; }
     }
 }

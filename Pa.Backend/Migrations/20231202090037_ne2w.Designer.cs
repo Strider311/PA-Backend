@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Pa.Backend.Dal;
@@ -11,9 +12,11 @@ using Pa.Backend.Dal;
 namespace Pa.Backend.Migrations
 {
     [DbContext(typeof(PaContext))]
-    partial class PaContextModelSnapshot : ModelSnapshot
+    [Migration("20231202090037_ne2w")]
+    partial class ne2w
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,9 +72,8 @@ namespace Pa.Backend.Migrations
                     b.Property<string>("image_path")
                         .HasColumnType("text");
 
-                    b.Property<string>("index_type")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("index_type")
+                        .HasColumnType("integer");
 
                     b.Property<float>("unhealthy_percent")
                         .HasColumnType("real");

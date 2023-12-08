@@ -11,9 +11,18 @@ var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddDbContext<PaContext>();
     builder.Services.AddScoped<IImageService, ImageService>();
+    builder.Services.AddScoped<ISessionService, SessionService>();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddControllers();
+
+    builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(builder =>
+     {
+         builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost").AllowAnyMethod().AllowAnyHeader();
+     });
+    });
 }
 
 var app = builder.Build();
@@ -24,6 +33,7 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
+    app.UseCors();
     app.MapControllers();
     app.Run();
 }

@@ -12,5 +12,9 @@ namespace Pa.Backend.Models
         public DateTime dt_created { get; set; }
 
         public DateTime lst_modified { get; set; }
+
+        public int number_of_images { get; set; }
+
+        public string? path { get; set; }
     }
 }
